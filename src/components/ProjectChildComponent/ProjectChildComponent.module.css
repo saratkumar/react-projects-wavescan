@@ -1,0 +1,64 @@
+.ProjectChildComponent {}
+
+.title {
+    text-align: left;
+    padding:10px;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    font-family: 'Segoe UI Variable', sans-serif !important;
+}
+
+.p10 {
+    padding: 10px !important;
+}
+
+.textLeft {
+    text-align: left !important;
+}
+
+.justifyCenter {
+    justify-content: center !important;
+}
+
+.chip {
+    /* float: left; */
+    border-radius: 11px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    font-size: 12px;
+    background: red !important;
+    color: white !important;
+    text-align: left;
+    justify-content: left;
+    height:20px !important;
+    /* display: flex !important;
+    width: fit-content; */
+}
+
+.field {
+    padding: 10px 10px;
+}
+
+.description {
+    text-align: left;
+    font-family: 'Segoe UI Variable', sans-serif;
+    padding:20px 10px;
+    line-height: 1.6;
+
+}
+
+.dFlex {
+    display: flex !important;
+}
+
+.card {
+    margin: 10px;
+    box-shadow: 1px 1px 1px 1px !important;
+    display: flex;
+    justify-content: space-between; 
+    flex-direction: column;
+}
+
+.p5 {
+    padding: 5px !important;
+}
