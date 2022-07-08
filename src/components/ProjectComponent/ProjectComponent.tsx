@@ -55,7 +55,7 @@ const ProjectComponent: FC<ProjectComponentProps> = (props: any) => {
     <div className={styles.ProjectComponent} data-testid="ProjectComponent">
       <SearchComponent search={userInputSearch} tagList={tagList}/>
       <div>
-          <h3 className={styles.title}> Projects</h3>
+          <h2 className={styles.title}> Projects</h2>
           <div className={styles.p15}>
             <ProjectChildComponent itemList={filteredList}/>
           </div>

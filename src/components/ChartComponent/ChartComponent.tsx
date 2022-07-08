@@ -1,4 +1,4 @@
-import Button, { ButtonProps } from '@mui/material/Button';
+import Button from '@mui/material/Button';
 import React, { FC, useEffect, useState } from 'react';
 import styles from './ChartComponent.module.css';
 import PieSvgComponent from '../PieSvgComponent/PieSvgComponent';
@@ -82,16 +82,6 @@ const ChartComponent: FC<ChartComponentProps> = (props) => {
     else return <PieSvgComponent data={barChartData} width={400} height={400} innerRadius={120} outerRadius={200} />
   }
 
-  const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
-    textDecoration: "underline",
-    border: "0px",
-    '&:hover': {
-      textDecoration: "underline",
-      border: "0px",
-    },
-  }));
-
-  
   useEffect(() => {
     const objProp = dataType ? 'material' : 'equipment';
     const temp: IData[] = [];
@@ -108,14 +98,12 @@ const ChartComponent: FC<ChartComponentProps> = (props) => {
     setBarChartData(temp);
   }, [dataType])
 
-
-
-
   return (
     <div className={styles.ChartComponent} data-testid="ChartComponent">
-      <ColorButton variant="outlined" onClick={handleOpen}>
+  
+      <Button variant="outlined" onClick={handleOpen} className={styles.viewMore}>
         View More
-      </ColorButton>
+      </Button>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -123,7 +111,7 @@ const ChartComponent: FC<ChartComponentProps> = (props) => {
         maxWidth={'lg'}
       >
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          <FormGroup>
+          <FormGroup className={styles.displayInline}>
             <FormControlLabel control={<MaterialChartSwitch sx={{ m: 1 }} defaultChecked />} label={chartType ? "Bar Chart" : "Pie Chart"}
               onChange={onChartTypeChange} />
             <FormControlLabel control={<MaterialDataSwitch sx={{ m: 1 }} defaultChecked />} label={dataType ? "Material" : "Equipment"}

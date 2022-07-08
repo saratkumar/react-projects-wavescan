@@ -14,6 +14,6 @@ code {
 
 @media only screen and (max-width: 455px) {
   .createProjectTitle {
-     display: none;
+     width: 100%;
   }
 }

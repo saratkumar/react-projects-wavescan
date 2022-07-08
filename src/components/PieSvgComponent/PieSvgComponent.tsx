@@ -6,7 +6,6 @@ interface PieSvgComponentProps { data: any; width: number; height: number; inner
 const PieSvgComponent: FC<PieSvgComponentProps> = (props: any) => {
 
   const Arc = ({ data, index, createArc, colors, format }:any) => {
-    console.log(data, 'asfdas');
     return (
     
       <g key={index} className="arc">

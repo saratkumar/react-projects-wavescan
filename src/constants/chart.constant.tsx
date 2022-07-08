@@ -16,12 +16,12 @@ export const MaterialChartSwitch = styled(Switch)(({ theme }) => ({
         },
         '& + .MuiSwitch-track': {
           opacity: 1,
-          backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
+          backgroundColor: theme.palette.mode === 'dark' ? '#990033' : '#990033',
         },
       },
     },
     '& .MuiSwitch-thumb': {
-      backgroundColor: theme.palette.mode === 'dark' ? '#003892' : '#001e3c',
+      backgroundColor: theme.palette.mode === 'dark' ? '#990033' : '#990033',
       width: 32,
       height: 32,
       '&:before': {
@@ -58,12 +58,12 @@ export const MaterialDataSwitch = styled(Switch)(({ theme }) => ({
         },
         '& + .MuiSwitch-track': {
           opacity: 1,
-          backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
+          backgroundColor: theme.palette.mode === 'dark' ? '#990033' : '#990033',
         },
       },
     },
     '& .MuiSwitch-thumb': {
-      backgroundColor: theme.palette.mode === 'dark' ? '#003892' : '#001e3c',
+      backgroundColor: theme.palette.mode === 'dark' ? '#990033' : '#990033',
       width: 32,
       height: 32,
       '&:before': {

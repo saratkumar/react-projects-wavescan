@@ -13,11 +13,26 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import ListItemText from '@mui/material/ListItemText';
+import { styled } from '@mui/material';
 
 interface SearchComponentProps {
   search: Function;
   tagList: string[]
 }
+
+const CustomizedSelect = styled((props: any) => {
+  return( <Select {...props} /> )
+})`
+  padding: 10px;
+  &.MuiOutlinedInput-root {
+    padding:0px !important
+  }
+  & .MuiSelect-select {
+    padding:10px !important
+  }
+  
+`;
+
 
 const SearchComponent: FC<SearchComponentProps> = (props) => {
   const [tags, setTags] = React.useState<string[]>([]);
@@ -57,10 +72,10 @@ const SearchComponent: FC<SearchComponentProps> = (props) => {
             </Search>
           </Box>
         </Grid>
-        <Grid item xs={12} md={2} sm={12} className={styles.textLeft}>
+        <Grid item xs={12} md={2} sm={12} className={styles.multiSelect}>
           <FormControl className={styles.formControl}>
             {/* <InputLabel id="demo-multiple-checkbox-label">Tags</InputLabel> */}
-            <Select
+            <CustomizedSelect
               labelId="demo-multiple-checkbox-label"
               id="demo-multiple-checkbox"
               multiple
@@ -68,7 +83,7 @@ const SearchComponent: FC<SearchComponentProps> = (props) => {
               value={tags}
               onChange={handleChange}
               input={<OutlinedInput />}
-              renderValue={(selected) => {
+              renderValue={(selected: any) => {
                 if (selected.length === 0) {
                   return <em>-Select Tags-</em>;
                 }
@@ -87,13 +102,13 @@ const SearchComponent: FC<SearchComponentProps> = (props) => {
                   <ListItemText primary={tag} />
                 </MenuItem>
               ))}
-            </Select>
+            </CustomizedSelect>
           </FormControl>
         </Grid>
 
-        <Grid item xs={12} md={2} sm={12}>
+        <Grid item xs={12} md={6} sm={12}>
           <Box sx={{ flexGrow: 1 }} className={styles.box}>
-            <CreateProjectButton>+ <span className="">Create Project</span> </CreateProjectButton>
+            <CreateProjectButton className="createProjectTitle">+ <span >Create Project</span> </CreateProjectButton>
           </Box>
         </Grid>
       </Grid>

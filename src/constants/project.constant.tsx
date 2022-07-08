@@ -3,7 +3,7 @@ import { styled, alpha } from '@mui/material/styles';
 
 export const CreateProjectButton = styled(Button)<ButtonProps>(({ theme }) => ({
     color: 'white',
-    backgroundColor: '#b53259',
+    backgroundColor: '#990033 !important',
     padding: '10px',
     borderRadius: '20px',
     '&:hover': {

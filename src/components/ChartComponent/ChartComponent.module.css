@@ -1,1 +1,16 @@
 .ChartComponent {}
+
+.viewMore {
+    text-decoration: underline !important;
+    border: 0px !important;
+    color: #990033 !important;
+}
+.viewMore:hover {
+    text-decoration: underline !important;
+    border: 0px !important;
+    color: #990033 !important;
+}
+
+.displayInline {
+    display: inline;
+}

@@ -1,4 +1,6 @@
-.SearchComponent {}
+.SearchComponent {
+    padding: 0px 10px
+}
 
 .h1 {
     margin: 0;
@@ -16,11 +18,18 @@
     text-align: left;
 }
 
+.multiSelect {
+    text-align: left;
+    margin: auto 0 !important;
+    padding: 10px !important;
+}
+
 .box {
-    background: #e7e7e7;
+    background: #FFFFFF;
     padding: 10px;
+    text-align: right;
 }
 .formControl {
     width: 100%; 
-    padding: 10px
+    /* padding: 10px */
 }
