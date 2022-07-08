@@ -5,6 +5,7 @@ import ProjectChildComponent from '../ProjectChildComponent/ProjectChildComponen
 import SearchComponent from '../SearchComponent/SearchComponent';
 import styles from './ProjectComponent.module.css';
 import { WaveScanResponse } from '../../models/wave-scan.interface';
+import Pagination from '@mui/material/Pagination';
 
 interface ProjectComponentProps {
 }
@@ -12,8 +13,10 @@ interface ProjectComponentProps {
 const ProjectComponent: FC<ProjectComponentProps> = (props: any) => {
   const itemList: WaveScanResponse[] = props.item;
   const [filteredList, setFilterList] = useState<WaveScanResponse[]>([]);
+  const [displayingRecords, setDisplayingRecords] = useState<WaveScanResponse[]>([]);
   const [tagList, setTagList] = useState<Array<string>>([]);
-
+  const [totalPage, setTotalPage] = useState<number>(10)
+  const range:number = 20;
   useEffect(() => {
     if(!itemList || !itemList.length)
       props.dispatch(fetchProducts())
@@ -22,11 +25,24 @@ const ProjectComponent: FC<ProjectComponentProps> = (props: any) => {
       itemList.forEach(el => tmpTagList.push(...el.tags));
       tmpTagList = Array.from(new Set(tmpTagList));
       setTagList(tmpTagList);
+      const rem = itemList.length % range;
+      const total = (itemList.length-rem)/range;
+      setTotalPage(rem ? total + 1 : total);
+      onPagination(1, itemList);
       setFilterList(itemList);
     }
     
   }, [itemList]);
 
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    onPagination(value, filteredList);
+  };
+
+  const onPagination = (page: number, list: any) => {
+    const start = page === 1 ? 0 : (page-1) * range;
+    setDisplayingRecords(list.slice(start, start + range));
+   
+  }
   const userInputSearch = (value: any, type: string) => {
     
     let temp: WaveScanResponse[] = [];
@@ -48,6 +64,10 @@ const ProjectComponent: FC<ProjectComponentProps> = (props: any) => {
        
         break;
       }
+      const rem = temp.length % range;
+      const total = (temp.length-rem)/range;
+      setTotalPage(rem ? total + 1 : total);
+      onPagination(1, temp);
       setFilterList(temp);
   };
 
@@ -55,9 +75,13 @@ const ProjectComponent: FC<ProjectComponentProps> = (props: any) => {
     <div className={styles.ProjectComponent} data-testid="ProjectComponent">
       <SearchComponent search={userInputSearch} tagList={tagList}/>
       <div>
-          <h2 className={styles.title}> Projects</h2>
+        <div className={styles.dFlex}>
+        <h2 className={styles.title}> Projects </h2>
+        <Pagination count={totalPage} onChange={handleChange} className={styles.mAuto}/>
+        </div>
+          
           <div className={styles.p15}>
-            <ProjectChildComponent itemList={filteredList}/>
+            {displayingRecords.length ? <ProjectChildComponent itemList={displayingRecords}/> : <h3>Loading...</h3>}
           </div>
       </div>
     </div>
