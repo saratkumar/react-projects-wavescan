@@ -37,9 +37,7 @@ const CustomizedSelect = styled((props: any) => {
 const SearchComponent: FC<SearchComponentProps> = (props) => {
   const [tags, setTags] = React.useState<string[]>([]);
   const onHandleChange = (ev: any) => {
-    if (!ev.target.value || ev.target.value?.length > 2) {
-      props.search(ev.target.value, "input");
-    }
+    props.search(ev.target.value, "input");
   }
   const handleChange = (event: SelectChangeEvent<typeof tags>) => {
     const {

@@ -13,25 +13,27 @@ interface ProjectComponentProps {
 const ProjectComponent: FC<ProjectComponentProps> = (props: any) => {
   const itemList: WaveScanResponse[] = props.item;
   const [filteredList, setFilterList] = useState<WaveScanResponse[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
   const [displayingRecords, setDisplayingRecords] = useState<WaveScanResponse[]>([]);
   const [tagList, setTagList] = useState<Array<string>>([]);
   const [totalPage, setTotalPage] = useState<number>(10)
-  const range:number = 20;
+  const range: number = 20;
   useEffect(() => {
-    if(!itemList || !itemList.length)
+    if (!itemList || !itemList.length)
       props.dispatch(fetchProducts())
     else {
-      let tmpTagList:any = [];
+      let tmpTagList: any = [];
       itemList.forEach(el => tmpTagList.push(...el.tags));
       tmpTagList = Array.from(new Set(tmpTagList));
       setTagList(tmpTagList);
       const rem = itemList.length % range;
-      const total = (itemList.length-rem)/range;
+      const total = (itemList.length - rem) / range;
       setTotalPage(rem ? total + 1 : total);
       onPagination(1, itemList);
       setFilterList(itemList);
     }
-    
+
   }, [itemList]);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -39,50 +41,55 @@ const ProjectComponent: FC<ProjectComponentProps> = (props: any) => {
   };
 
   const onPagination = (page: number, list: any) => {
-    const start = page === 1 ? 0 : (page-1) * range;
+    const start = page === 1 ? 0 : (page - 1) * range;
     setDisplayingRecords(list.slice(start, start + range));
-   
+
   }
   const userInputSearch = (value: any, type: string) => {
-    
-    let temp: WaveScanResponse[] = [];
-    switch(type) {
+
+    switch (type) {
       case "input":
         const searchTerm = value.toLowerCase();
-        temp =itemList.filter(el => (!searchTerm || (el.title?.toLowerCase().indexOf(searchTerm) > -1 || el.description.indexOf(searchTerm) > -1)));
+        setSearchTerm(searchTerm);
         break;
       case "dropdown":
-        if(value && value.length) {
-          value.forEach((option: any) => {
-            let result = [];
-            result =itemList.filter(el => el.tags.indexOf(option) > -1);
-            temp = [...temp, ...result];
-          });
-        } else {
-          temp = itemList;
-        }
-       
+        setSelectedCategory(value);
         break;
-      }
-      const rem = temp.length % range;
-      const total = (temp.length-rem)/range;
-      setTotalPage(rem ? total + 1 : total);
-      onPagination(1, temp);
-      setFilterList(temp);
+    }
   };
+
+  useEffect(() => {
+    let temp: WaveScanResponse[] = itemList;
+    if (searchTerm.length > 2) {
+      temp = temp.filter(el => (!searchTerm || (el.title?.toLowerCase().indexOf(searchTerm) > -1 || el.description.indexOf(searchTerm) > -1)));
+    }
+
+    if (selectedCategory && selectedCategory.length) {
+      selectedCategory.forEach((option: any) => {
+        temp = temp.filter(el => el.tags.indexOf(option) > -1);
+      });
+    }
+
+    const rem = temp.length % range;
+    const total = (temp.length - rem) / range;
+    setTotalPage(rem ? total + 1 : total);
+    onPagination(1, temp);
+    setFilterList(temp);
+
+  }, [searchTerm, selectedCategory])
 
   return (
     <div className={styles.ProjectComponent} data-testid="ProjectComponent">
-      <SearchComponent search={userInputSearch} tagList={tagList}/>
+      <SearchComponent search={userInputSearch} tagList={tagList} />
       <div>
         <div className={styles.dFlex}>
-        <h2 className={styles.title}> Projects </h2>
-        <Pagination count={totalPage} onChange={handleChange} className={styles.mAuto}/>
+          <h2 className={styles.title}> Projects </h2>
+          <Pagination count={totalPage} onChange={handleChange} className={styles.mAuto} />
         </div>
-          
-          <div className={styles.p15}>
-            {displayingRecords.length ? <ProjectChildComponent itemList={displayingRecords}/> : <h3>Loading...</h3>}
-          </div>
+
+        <div className={styles.p15}>
+          {displayingRecords.length ? <ProjectChildComponent itemList={displayingRecords} /> : <h3>Loading...</h3>}
+        </div>
       </div>
     </div>
   );
